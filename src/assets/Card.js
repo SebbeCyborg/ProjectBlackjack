@@ -1,10 +1,15 @@
 // Has value, suit and image, will have resources image for each card
 
 class Card {
-    constructor(value,color,suit, image){
+
+    constructor(value, suit, image, hiddenImage){
     this.value = value;
-    this.color = color;
     this.suit = suit;
     this.image = image;
+    this.hidden = true;
+    this.hiddenImage = hiddenImage;
     }
+
+
+
 }
