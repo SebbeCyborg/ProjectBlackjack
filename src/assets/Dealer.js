@@ -1,12 +1,14 @@
-//
+// Hands out cards, shuffles deck, 
 
 class Dealer {
+   
 
     
 
-    constructor(Deck){
+    constructor(){
 
-        
+        let playerList = players;
+        const playerWins = false;
 
     }
 

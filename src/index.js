@@ -1,3 +1,14 @@
-const button = document.createElement('button');
-document.body.appendChild(button)
+
+class  index {
+  
+    constructor(){
+
+
+       n= new Deck();
+     n.createDeck();
+    }
+  
+
+
+}
 
