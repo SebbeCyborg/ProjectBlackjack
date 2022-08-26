@@ -1,0 +1,25 @@
+{
+  "name": "blackjack",
+  "version": "1.0.0",
+  "description": "implementation of blackjack game",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twilioquestgod/ProjectBlackjack.git"
+  },
+  "keywords": [
+    "\"hit\"",
+    "\"submit\"",
+    "\"split\"",
+    "\"stand\""
+  ],
+  "author": "Sebastian Eriksson & Eabha nic Coinnich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twilioquestgod/ProjectBlackjack/issues"
+  },
+  "homepage": "https://github.com/twilioquestgod/ProjectBlackjack#readme"
+}
