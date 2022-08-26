@@ -1,0 +1,1 @@
+//knows what his hand is, can ask dealer to HIT, SPLIT & STAND
