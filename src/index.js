@@ -1,3 +1,5 @@
+const suits = ["hearts","diamonds","spades","clubs"];
+const values = ["ace",2,3,4,5,6,7,8,9,10,"kings","queen","jack"];
 class Card {
     constructor(value,suit,id){
         this.value = value;
@@ -12,13 +14,20 @@ class Card {
     }
 
 }
-class Hand extends Card{
-    constructor(cards){
-        this.cards = [cards[0],cards[1]];
+class Hand {
+    //a hand is just two cards
+    constructor(cardA,cardB){
+        this.cards = [cardA,cardB];
     }
+    firstCard(){
+        return cardA;
+    }
+    lastCard(){
+        return cardB;
+    }
+
 }
-const suits = ["hearts","diamonds","spades","clubs"];
-const values = ["ace",2,3,4,5,6,7,8,9,10,"kings","queen","jack"];
+
 /*  */
 function createDeckOfCards(){
 
@@ -45,7 +54,13 @@ return cards;
 class Player {
     constructor(hand,wallet){
         this.wallet = wallet;
-        this.hand = [];
+        this.hand = hand;
+    }
+
+    printHand(){
+        
+        console.log(this.hand.firstCard());
+        console.log(this.hand.secondCard());
     }
 }
 
@@ -97,12 +112,48 @@ class Dealer{
 
     }
 }
+class  Wallet {
+    constructor(balance){
+
+        this.balance =balance; 
+    }
+ 
+    withdraw(amount){
+        this.balance = this.balance - amount;
+    }
+
+    deposit(amount){
+        this.balance = this.balance + amount;
+    }
+
+}
+
+function shuffle(deckOfCards){
+
+    let cardsDeck = deckOfCards;
+
+    let shuffledDeck = cardsDeck.sort(function () {
+      return Math.random() - 0.5;
+    });
+
+    return shuffledDeck;
+
+}
+   
+
+
 
 //creates the deck of cards, gives player his hand, updates the deck of cards, returns the 
 
+var deck = createDeckOfCards();
+shuffle(deck);
+console.log("first card ID:");
+console.log(deck.pop().id);
+console.log("second Card ID:");
+console.log(deck.pop().id);
+//create player and create AI, singleplayer vs computer
 
 
-//creating player, giving cards 
 
 
 
