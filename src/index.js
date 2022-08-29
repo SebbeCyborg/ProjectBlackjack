@@ -19,21 +19,7 @@ class Card {
     }
 }
 
-class  Wallet {
-    constructor(balance){
 
-        this.balance =balance; 
-    }
- 
-    withdraw(amount){
-        this.balance = this.balance - amount;
-    }
-
-    deposit(amount){
-        this.balance = this.balance + amount;
-    }
-
-}
 class Player {
     constructor(wallet){
         this.wallet = wallet;
@@ -127,18 +113,11 @@ function split(deckOfCards){
 
 }
 
-function checkScore(handOfCards){
-
-    //do stuff
-    //calculate the score of the hand of cards provided as argument
-    //return true if over 21, false if under, true if it is 21.
-    return isOver21;
-}
 
 //INITIALIZATION
 var roundCounter = 0;
 var outOfMoney = false;
-var wallet = new Wallet(1000);
+var wallet = 1000;
 var deck = createDeckOfCards();
 
 
@@ -154,20 +133,11 @@ player.addToHand(cardFirst);
 player.addToHand(cardSecond);
 player.getScore();
 
-/* var cardSecond = hit(deck);
-p = new Player(cardFirst,cardSecond,wallet); */
-
-
 
 
 
 
 //TODO LIST
-//create player and create Dealer
-
-//give player two cards, start the game
-
-//game loop, exit when player exit game 
 
 //give player multiple choices - HIT / STAND / SPLIT 
 //catch errors if player choice is invalid/not according to rules
