@@ -140,8 +140,14 @@ function hit() {
   var card = getRandomCard(deck);
   console.log("You got "+card.value+"of"+card.suit);
   player.addToHand(card);
+  updateScoreBoard();
   if(player.score >21 ){
+    updateScoreBoard();
     alert("Bust! you lose");
+  }
+  if(player.score === 21){
+    updateScoreBoard();
+    alert("You win!");
   }
   updateScoreBoard();
  
@@ -157,12 +163,15 @@ function stand() {
   if(dealer.score < 16){
     dealer.addToHand(getRandomCard(deck));
     if(dealer.score > 21){
+      updateScoreBoard();
       alert("You win!");
     }
     if(dealer.score > 16 && player.score > dealer.score){
+      updateScoreBoard();
       alert("You win!");
     }
     if(dealer.score === 21){
+      updateScoreBoard();
       alert("You bust!");
     }
 
@@ -172,6 +181,9 @@ function stand() {
 
 function split() {
   console.log("..Pressed split..\n");
+  // can split 2 cards with the same value, 
+  //check if player has ability to split
+  //then split.
 }
 
 function playerHasWon(){
@@ -186,6 +198,7 @@ function startGame() {
   player.addToHand(getRandomCard(deck));
   dealer.addToHand(getRandomCard(deck));
   dealer.addToHidden(getRandomCard(deck));
+  updateScoreBoard();
   console.log("Starting game ...\nGiven starting cards:");
   player.printHand();
   console.log("You get a starting score of : " + player.getScore() + " hit / stand / split?\n");
