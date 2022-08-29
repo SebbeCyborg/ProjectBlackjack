@@ -170,29 +170,21 @@ shuffle(deck);
 
 
 
+//TODO LIST
 //create player and create Dealer
 
-
-
-
-
 //give player two cards, start the game
-
 
 //game loop, exit when player exit game 
 
 //give player multiple choices - HIT / STAND / SPLIT 
 //catch errors if player choice is invalid/not according to rules
 
-
 //player chose HIT 
-
 
 //player chose STAND
 
-
 //player chost SPLIT
-
 
 //player chose to exit game
 
