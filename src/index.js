@@ -16,14 +16,22 @@ class Card {
 }
 class Hand {
     //a hand is just two cards
-    constructor(cardA,cardB){
-        this.cards = [cardA,cardB];
+    constructor(){
+        this.length = 0;
+        this.listOfCards = new Array();
     }
     firstCard(){
-        return cardA;
+        return listOfCards[0];
     }
     lastCard(){
-        return cardB;
+        return listOfCards[length];
+    }
+    length(){
+        return this.length;
+    }
+    addCard(card){
+        this.length++;
+        this.listOfCards.push(card);
     }
 
 }
@@ -40,21 +48,27 @@ for(j = 0; j <= 3;j++){
     //for every suit in the deck
 
     for(k = 0; k <= 12; k++){
+        
         var value = values[k];
-        i++;
+       
         //for every value per suit
         //create a card for every value per suit
         cards.push( new Card(value,suit,i));
+        cards[i].printCard();
+        i++;
              
     }
 }
+
 return cards;
 }
+
+
 
 class Player {
     constructor(hand,wallet){
         this.wallet = wallet;
-        this.hand = hand;
+        this.hand = new Array();
     }
 
     printHand(){
@@ -62,6 +76,7 @@ class Player {
         console.log(this.hand.firstCard());
         console.log(this.hand.secondCard());
     }
+   
 }
 
 class gameController{
@@ -81,13 +96,14 @@ class gameController{
     }
 }
 
-
-function hit(cards){
-var rndmCard = cards[Math.floor(Math.random() * cards.length)];
-cards.pop(rndmCard);
-var rndmCard2 = cards[Math.floor(Math.random() * cards.length)];
-cards.pop(rndCard2);
+//pick 2 random cards from deck
+function hit(deck){
+var rndmCard = deck[Math.floor(Math.random() * cards.length)];
+var firstCard = deck.pop(rndmCard);
+var rndmCard2 = deck[Math.floor(Math.random() * cards.length)];
+var secondCard = deck.pop(rndCard2);
 twoCards = new Array();
+
 twoCards.push(rndmCard);
 twoCards.push(rndmCard2);
 
@@ -104,11 +120,13 @@ class Dealer{
     
 
     hit(){
-        //hits the
+        //hits the player with
+        this.player.hand.push(deck.pop());
 
     }
     
     stand(){
+        //does not distribute cards, 
 
     }
 }
@@ -139,19 +157,20 @@ function shuffle(deckOfCards){
     return shuffledDeck;
 
 }
-   
 
 
-
-//creates the deck of cards, gives player his hand, updates the deck of cards, returns the 
-
+//INITIALIZATION
+var roundCounter = 0;
+var outOfMoney = false;
+var wallet = new Wallet(100);
 var deck = createDeckOfCards();
 shuffle(deck);
-console.log("first card ID:");
-console.log(deck.pop().id);
-console.log("second Card ID:");
-console.log(deck.pop().id);
-//create player and create AI, singleplayer vs computer
+
+
+
+
+
+//create player and create Dealer
 
 
 
@@ -160,7 +179,22 @@ console.log(deck.pop().id);
 //give player two cards, start the game
 
 
-//game loop, exits when player exits game 
+//game loop, exit when player exit game 
+
+//give player multiple choices - HIT / STAND / SPLIT 
+//catch errors if player choice is invalid/not according to rules
+
+
+//player chose HIT 
+
+
+//player chose STAND
+
+
+//player chost SPLIT
+
+
+//player chose to exit game
 
 
 
