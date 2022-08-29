@@ -108,7 +108,7 @@ function shuffle(deckOfCards) {
 }
 
 //INITIALIZE GAME VARIABLES
-var roundCounter = 0;
+
 var outOfMoney = false;
 var wallet = 1000;
 var wallet2 = 99999999;
@@ -140,11 +140,15 @@ function hit() {
   var card = getRandomCard(deck);
   console.log("You got "+card.value+"of"+card.suit);
   player.addToHand(card);
+  if(player.score >21 ){
+    alert("Bust! you lose");
+  }
   updateScoreBoard();
  
 }
 
 function stand() {
+  
   console.log("..Pressed stand..\n");
 
   if(dealer.score > 16){
@@ -152,6 +156,15 @@ function stand() {
   }
   if(dealer.score < 16){
     dealer.addToHand(getRandomCard(deck));
+    if(dealer.score > 21){
+      alert("You win!");
+    }
+    if(dealer.score > 16 && player.score > dealer.score){
+      alert("You win!");
+    }
+    if(dealer.score === 21){
+      alert("You bust!");
+    }
 
   }
   updateScoreBoard();
@@ -169,7 +182,6 @@ function playerHasWon(){
 //starts the game by giving 2 cards to player.
 //and 2 cards to dealer (where 1 card is hidden to the player);
 function startGame() {
-  roundCounter++;
   player.addToHand(getRandomCard(deck));
   player.addToHand(getRandomCard(deck));
   dealer.addToHand(getRandomCard(deck));
@@ -179,7 +191,6 @@ function startGame() {
   console.log("You get a starting score of : " + player.getScore() + " hit / stand / split?\n");
   document.getElementById("gameStats").style.visibility = "visible";
   updateScoreBoard();
-
 }
 
 function exitGame() {
