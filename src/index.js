@@ -12,7 +12,6 @@ class Card {
     console.log("Card ID:" + this.id);
     console.log("Card Value:" + this.value);
     console.log("Card Suit:" + this.suit);
-  
   }
 }
 
@@ -27,13 +26,13 @@ class Player {
     this.hand.push(card);
 
     if (
-        card.value != "kings" &&
-        card.value != "queen" &&
-        card.value != "jack" &&
-        card.value != "ace"
-      ) {
-        this.score = this.score + card.value;
-      }
+      card.value != "kings" &&
+      card.value != "queen" &&
+      card.value != "jack" &&
+      card.value != "ace"
+    ) {
+      this.score = this.score + card.value;
+    }
 
     if (
       card.value === "kings" ||
@@ -41,45 +40,28 @@ class Player {
       card.value === "jack"
     ) {
       this.score = this.score + 10;
-      
     }
 
     if (card.value === "ace") {
-      
       if (this.score < 11) {
         this.score = this.score + 11;
-      
-      }
-      else if (this.score >= 11) {
-  
+      } else if (this.score >= 11) {
         this.score = this.score + 1;
-        
       }
     }
-
   }
 
   getScore() {
-    this.printHand();
     if (this.score === 21) {
       console.log("=WINNER!=");
-      
     }
 
     if (this.score > 21) {
       console.log("You lost!");
-     
     }
 
     console.log("SCORE : " + this.score);
   }
-  
-  printHand(){
-    for( const card of this.hand){
-        //card.printCard();
-    }
-  }
-
 }
 
 /*  */
@@ -100,7 +82,6 @@ function createDeckOfCards() {
   return cards;
 }
 
-
 function getRandomCard(deck) {
   var rndmCard = deck[Math.floor(Math.random() * deck.length)];
   return deck.pop(rndmCard);
@@ -115,44 +96,53 @@ function shuffle(deckOfCards) {
   return shuffledDeck;
 }
 
-//DOM VARIABLES
-document.getElementById('buttonStart').addEventListener("click", startGame);
-
-
-function startGame(){
-    console.log("Start game!");
-    
-}
 //INITIALIZE GAME VARIABLES
 var roundCounter = 0;
 var outOfMoney = false;
 var wallet = 1000;
 var wallet2 = 99999999;
-
 var deck = createDeckOfCards();
 shuffle(deck);
-
 var player = new Player(wallet);
 var dealer = new Player(wallet2);
 
-player.addToHand(getRandomCard(deck));
-player.addToHand(getRandomCard(deck));
+//DOM VARIABLES
+document.getElementById("buttonStart").addEventListener("click", startGame);
+document.getElementById("exit").addEventListener("click", exitGame);
+document.getElementById("hit").addEventListener("click", hit);
+document.getElementById("stand").addEventListener("click", stand);
+document.getElementById("split").addEventListener("click", split);
+document.getElementById("submit").addEventListener("click", submit);
+document.getElementById("gameStats").style.visibility = "hidden";
 
-
-const gameStats = document.getElementById('gameStats');
-
-if(gameStats === null){
-    console.log("NULL TRY AGAIN");
+function hit() {
+  console.log("pressed hit\n");
 }
 
+function stand() {
+  console.log("pressed stand\n");
+}
 
+function split() {
+  console.log("pressed split\n");
+}
 
+function submit() {
+  console.log("pressed submit\n");
+}
 
+function startGame() {
+  console.log("Start game!");
+  document.getElementById("gameStats").style.visibility = "visible";
+}
 
+function exitGame() {
+  console.log("exit game");
+  document.getElementById("gameStats").style.visibility = "hidden";
+}
 
 //making a switch case for when player presses the buttons
 // - hit
-// - split 
+// - split
 // - stand
 // - submit
-
