@@ -9,9 +9,11 @@ class Card {
   }
 
   printCard() {
+
     console.log("Card ID:" + this.id);
     console.log("Card Value:" + this.value);
     console.log("Card Suit:" + this.suit);
+    console.log("______________________");
   }
 }
 
@@ -20,6 +22,7 @@ class Player {
     this.wallet = wallet;
     this.score = 0;
     this.hand = new Array();
+    this.hiddenHand = new Array();
   }
 
   addToHand(card) {
@@ -50,17 +53,25 @@ class Player {
       }
     }
   }
+  addToHidden(card){
+    this.hiddenHand.push(card);
+  }
 
   getScore() {
     if (this.score === 21) {
-      console.log("=WINNER!=");
+      console.log("YOU WIN!");
+   
     }
 
     if (this.score > 21) {
-      console.log("You lost!");
+      console.log("BUST");
     }
-
-    console.log("SCORE : " + this.score);
+    return this.score;
+  }
+  printHand() {
+    for (var i = 0; i < this.hand.length; i++) {
+      this.hand[i].printCard();
+    }
   }
 }
 
@@ -112,33 +123,69 @@ document.getElementById("exit").addEventListener("click", exitGame);
 document.getElementById("hit").addEventListener("click", hit);
 document.getElementById("stand").addEventListener("click", stand);
 document.getElementById("split").addEventListener("click", split);
-document.getElementById("submit").addEventListener("click", submit);
 document.getElementById("gameStats").style.visibility = "hidden";
 
+
+ function updateScoreBoard(){
+  document.getElementById("playerScore").innerHTML =
+  "PLAYER SCORE: " + player.getScore();
+document.getElementById("dealerScore").innerHTML =
+  "DEALER SCORE: " + dealer.getScore();
+ }
+
+
 function hit() {
-  console.log("pressed hit\n");
+
+  console.log("..Pressed hit..\n");
+  var card = getRandomCard(deck);
+  console.log("You got "+card.value+"of"+card.suit);
+  player.addToHand(card);
+  updateScoreBoard();
+ 
 }
 
 function stand() {
-  console.log("pressed stand\n");
+  console.log("..Pressed stand..\n");
+
+  if(dealer.score > 16){
+    //SHOW HIDDEN DEALER CARD
+  }
+  if(dealer.score < 16){
+    dealer.addToHand(getRandomCard(deck));
+
+  }
+  updateScoreBoard();
 }
 
 function split() {
-  console.log("pressed split\n");
+  console.log("..Pressed split..\n");
 }
 
-function submit() {
-  console.log("pressed submit\n");
+function playerHasWon(){
+  return (player.score === 21 && ( dealer.score < 21 || dealer.score >21))
+
 }
 
+//starts the game by giving 2 cards to player.
+//and 2 cards to dealer (where 1 card is hidden to the player);
 function startGame() {
-  console.log("Start game!");
+  roundCounter++;
+  player.addToHand(getRandomCard(deck));
+  player.addToHand(getRandomCard(deck));
+  dealer.addToHand(getRandomCard(deck));
+  dealer.addToHidden(getRandomCard(deck));
+  console.log("Starting game ...\nGiven starting cards:");
+  player.printHand();
+  console.log("You get a starting score of : " + player.getScore() + " hit / stand / split?\n");
   document.getElementById("gameStats").style.visibility = "visible";
+  updateScoreBoard();
+
 }
 
 function exitGame() {
-  console.log("exit game");
+  console.log("Exit game");
   document.getElementById("gameStats").style.visibility = "hidden";
+  location.reload(); //reloads the page when game exits
 }
 
 //making a switch case for when player presses the buttons
