@@ -18,11 +18,12 @@ class Card {
 }
 
 class Player {
-  constructor(wallet) {
+  constructor(wallet,name) {
     this.wallet = wallet;
     this.score = 0;
     this.hand = new Array();
     this.hiddenHand = new Array();
+    this.name=name;
   }
 
   addToHand(card) {
@@ -59,12 +60,12 @@ class Player {
 
   getScore() {
     if (this.score === 21) {
-      console.log("YOU WIN!");
+      console.log(this.name+" WIN!");
    
     }
 
     if (this.score > 21) {
-      console.log("BUST");
+      console.log(this.name+"BUSTED");
     }
     return this.score;
   }
@@ -114,8 +115,8 @@ var wallet = 1000;
 var wallet2 = 99999999;
 var deck = createDeckOfCards();
 shuffle(deck);
-var player = new Player(wallet);
-var dealer = new Player(wallet2);
+var player = new Player(wallet,"player");
+var dealer = new Player(wallet2,"dealer");
 
 //DOM VARIABLES
 document.getElementById("buttonStart").addEventListener("click", startGame);
@@ -138,7 +139,7 @@ function hit() {
 
   console.log("..Pressed hit..\n");
   var card = getRandomCard(deck);
-  console.log("You got "+card.value+"of"+card.suit);
+  console.log("Card is:"+card.value+"of"+card.suit);
   player.addToHand(card);
   updateScoreBoard();
   if(player.score >21 ){
@@ -160,7 +161,7 @@ function stand() {
   if(dealer.score > 16){
     //SHOW HIDDEN DEALER CARD
   }
-  if(dealer.score < 16){
+  if(dealer.score <= 16){
     dealer.addToHand(getRandomCard(deck));
     if(dealer.score > 21){
       updateScoreBoard();
@@ -194,11 +195,12 @@ function playerHasWon(){
 //starts the game by giving 2 cards to player.
 //and 2 cards to dealer (where 1 card is hidden to the player);
 function startGame() {
+  document.getElementById("buttonStart").style.visibility = "hidden";
   player.addToHand(getRandomCard(deck));
   player.addToHand(getRandomCard(deck));
   dealer.addToHand(getRandomCard(deck));
   dealer.addToHidden(getRandomCard(deck));
-  updateScoreBoard();
+ 
   console.log("Starting game ...\nGiven starting cards:");
   player.printHand();
   console.log("You get a starting score of : " + player.getScore() + " hit / stand / split?\n");
@@ -210,6 +212,7 @@ function exitGame() {
   console.log("Exit game");
   document.getElementById("gameStats").style.visibility = "hidden";
   location.reload(); //reloads the page when game exits
+  document.getElementById("buttonStart").style.visibility = "visible";
 }
 
 //making a switch case for when player presses the buttons
