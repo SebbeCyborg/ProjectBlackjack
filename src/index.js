@@ -1,3 +1,15 @@
+/*
+* An implementation of the game of BlackJack
+* limitations: not working properly, 
+* winning condition is checked and spread out throughout the code
+* there is no image on screen to show the cards, also the hidden card
+* the dealer is supposed to have is not implemented.
+*
+* known bugs: when both have score over 16, 'stand' does nothing
+* 
+*/
+
+
 const suits = ["hearts", "diamonds", "spades", "clubs"];
 const values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "kings", "queen", "jack"];
 
@@ -134,7 +146,11 @@ document.getElementById("dealerScore").innerHTML =
   "DEALER SCORE: " + dealer.getScore();
  }
 
-
+ /*
+ *hit()
+ * gives a card to the player, and checks winning conditions
+ * 
+ */
 function hit() {
 
   console.log("..Pressed hit..\n");
@@ -145,61 +161,94 @@ function hit() {
   if(player.score >21 ){
     updateScoreBoard();
     alert("Bust! you lose");
+    player.score = 0;
+    dealer.score= 0;
+    startGame();
+    
   }
   if(player.score === 21){
     updateScoreBoard();
     alert("You win!");
+    player.score = 0;
+    dealer.score= 0;
+    startGame();
+  
   }
   updateScoreBoard();
  
 }
-
-function stand() {
+/*
+ * stand() 
+ * this function is executed when player
+ * choses to stand, it checks for winning conditions
+ * and adds a card to the dealers hand if conditions are met.
+ */
+function stand (){
   
   console.log("..Pressed stand..\n");
 
   if(dealer.score > 16){
     //SHOW HIDDEN DEALER CARD
+    //
+    //
   }
   if(dealer.score <= 16){
     dealer.addToHand(getRandomCard(deck));
     if(dealer.score > 21){
       updateScoreBoard();
       alert("You win!");
+      player.score = 0;
+      dealer.score= 0;
+      startGame();
     }
-    if(dealer.score > 16 && player.score > dealer.score){
+    if(dealer.score > 16 && player.score > dealer.score && player.score <= 21){
       updateScoreBoard();
       alert("You win!");
+      player.score = 0;
+      dealer.score= 0;
+      startGame();
     }
     if(dealer.score === 21){
       updateScoreBoard();
       alert("You bust!");
+      player.score = 0;
+      dealer.score= 0;
+      startGame();
+      
     }
 
   }
   updateScoreBoard();
 }
-
+/*
+*split()
+* this function is supposed to 
+* split the hand into two separate hands.
+*/
 function split() {
   console.log("..Pressed split..\n");
   // can split 2 cards with the same value, 
   //check if player has ability to split
   //then split.
 }
-
+/*
+*playerHasWon()
+*output: returns true if the player 
+*has a score of 21 and the dealer has lower or higher
+*/
 function playerHasWon(){
   return (player.score === 21 && ( dealer.score < 21 || dealer.score >21))
 
 }
 
 //starts the game by giving 2 cards to player.
-//and 2 cards to dealer (where 1 card is hidden to the player);
+//and 2 cards to dealer (where 1 card is hidden to the player inside dealer);
 function startGame() {
   document.getElementById("buttonStart").style.visibility = "hidden";
   player.addToHand(getRandomCard(deck));
   player.addToHand(getRandomCard(deck));
   dealer.addToHand(getRandomCard(deck));
-  dealer.addToHidden(getRandomCard(deck));
+  dealer.addToHidden(getRandomCard(deck));// --------------------ADDS HIDDEN CARD IN DEALER---------------
  
   console.log("Starting game ...\nGiven starting cards:");
   player.printHand();
