@@ -5,7 +5,11 @@
 * there is no image on screen to show the cards, also the hidden card
 * the dealer is supposed to have is not implemented.
 *
-* known bugs: when both have score over 16, 'stand' does nothing
+* known bugs: when both have score over 16, 'stand' does nothing,
+* when restarting the game, it prints out the previous cards from last round,
+* making it hard to follow/debug with the console.
+* issues: code is badly written, duplicate code 
+
 * 
 */
 
@@ -13,6 +17,11 @@
 const suits = ["hearts", "diamonds", "spades", "clubs"];
 const values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "kings", "queen", "jack"];
 
+/**
+ * card class holds information 
+ * about the value, suit and id of a card.
+ * method printCard only shows the value of card
+ */
 class Card {
   constructor(value, suit, id) {
     this.value = value;
@@ -29,6 +38,13 @@ class Card {
   }
 }
 
+/**
+ * class player repreesnts a player and dealer
+ * it has a wallet, score and an array of cards
+ * method addToHand() adds a card to the array
+ * method printHand() prints the whole hand in console.
+ * method getScore() returns the score.
+ */
 class Player {
   constructor(wallet,name) {
     this.wallet = wallet;
@@ -88,7 +104,11 @@ class Player {
   }
 }
 
-/*  */
+/**
+ * creates a whole deck of cards
+ * @returns the array of cards
+ * 
+ */
 function createDeckOfCards() {
   const deckSize = 51;
   var cards = [];
@@ -106,11 +126,21 @@ function createDeckOfCards() {
   return cards;
 }
 
+/**
+ * this function gets a random card from the deck
+ * @param {the deck of cards, which is a global variable} deck 
+ * @returns the specific card
+ */
 function getRandomCard(deck) {
   var rndmCard = deck[Math.floor(Math.random() * deck.length)];
   return deck.pop(rndmCard);
 }
 
+/**
+ * shuffles the deck of cards
+ * @param {the deck } deckOfCards 
+ * @returns the shuffled deck
+ */
 function shuffle(deckOfCards) {
   let cardsDeck = deckOfCards;
   let shuffledDeck = cardsDeck.sort(function () {
@@ -139,6 +169,9 @@ document.getElementById("split").addEventListener("click", split);
 document.getElementById("gameStats").style.visibility = "hidden";
 
 
+/**
+ * updates scoreboard in browser
+ */
  function updateScoreBoard(){
   document.getElementById("playerScore").innerHTML =
   "PLAYER SCORE: " + player.getScore();
@@ -244,6 +277,7 @@ function playerHasWon(){
 //starts the game by giving 2 cards to player.
 //and 2 cards to dealer (where 1 card is hidden to the player inside dealer);
 function startGame() {
+  console.log("===========NEW ROUND=======\n\n");
   document.getElementById("buttonStart").style.visibility = "hidden";
   player.addToHand(getRandomCard(deck));
   player.addToHand(getRandomCard(deck));
@@ -256,11 +290,14 @@ function startGame() {
   document.getElementById("gameStats").style.visibility = "visible";
   updateScoreBoard();
 }
-
+/**
+ * is executed when player presses exit,
+ * this function reloads the browser, resets score
+ */
 function exitGame() {
   console.log("Exit game");
   document.getElementById("gameStats").style.visibility = "hidden";
-  location.reload(); //reloads the page when game exits
+  location.reload(); 
   document.getElementById("buttonStart").style.visibility = "visible";
 }
 
